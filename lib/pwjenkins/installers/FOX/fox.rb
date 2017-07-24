@@ -16,7 +16,7 @@ module Pwjenkins
 
       def clone_command
         branch = "#{branch}"
-        scheme = "#{platform}"
+        scheme = "#{scheme}"
 
         # Create directory and change directory into created dir.
         FileUtils::mkdir "FOX-#{branch}-#{scheme}" unless File.exists?("FOX-#{branch}-#{scheme}")
@@ -43,14 +43,7 @@ module Pwjenkins
       def build_attmept
         avail_schemes = ["debug", "adhoc", "release"]
         puts Rainbow("== Attempting to build project ==").cyan
-
-        if scheme.downcase == "all"
-          for sch in avail_schemes do
-            system! "xcodebuild -scheme #{sch} -workspace FOX.xcworkspace/ -archivePath /Path/To/Output/FOX.xcarchive | xcpretty"
-          end
-        else
-          system! 'xcodebuild -scheme '+scheme+' -workspace FOX.xcworkspace/ -archivePath /Path/To/Output/FOX.xcarchive | xcpretty'
-        end
+        system! 'xcodebuild -scheme '+scheme+' -workspace FOX.xcworkspace/ -archivePath /Path/To/Output/FOX.xcarchive | xcpretty'
         puts Rainbow("== Project built successfully ==").magenta
 
       rescue NoMethodError => e
