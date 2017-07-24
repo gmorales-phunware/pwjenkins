@@ -15,6 +15,9 @@ module Pwjenkins
     end
 
     method_option :all, :aliases => "-all", :desc => "Build All Schemes after cloning repo."
+    method_option :debug, :aliases => "-d", :desc => "Build with Debug scheme"
+    method_option :adhoc, :aliases => "-a", :desc => "Build with AdHoc scheme"
+    method_option :release, :aliases => "-r", :desc => "Build with Release scheme"
     desc "[APP] -[scheme]", "CLI Installer for AF iOS "
     def app(name)
       scheme = options[:all]
@@ -24,7 +27,7 @@ module Pwjenkins
       end
 
       if scheme == "-all"
-        Pwjenkins::Installers::FOX.start([branch, scheme])
+        Pwjenkins::Installers::FOXAll.start([branch])
       else
         Pwjenkins::Installers::FOX.start([branch, scheme])
       end
